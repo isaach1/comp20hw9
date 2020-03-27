@@ -1,0 +1,164 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Setlist</title>
+<style>
+	#big {
+		font-size: 24px;
+	}
+
+	#filtered_title {
+		font-size: 24px;
+	}
+
+	hr { 
+		display: block;
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		margin-left: auto;
+		margin-right: auto;
+		border-style: inset;
+		border-width: 1px;
+	} 
+</style>
+</head>
+
+<body>
+	<script language="javascript">
+		{
+			setlist = [
+				{
+					'artists' : [ 'Daft Punk' ],
+					'title' : 'Instant Crush',
+					'genres' : [ 'Electronic' ],
+					'year' : 2013
+				},
+				{
+					'artists' : [ 'Alan Fitzpatrick' ],
+					'title' : 'Awkward Desire',
+					'genres' : [ 'Techno', 'Electronic' ],
+					'year' : 2019
+				},
+				{
+					'artists' : [ 'Four Tet', 'KH' ],
+					'title' : 'Only Human',
+					'genres' : [ 'House', 'Electronic' ],
+					'year' : 2019
+				},
+				{
+					'artists' : [ 'Uk Apache', 'Shy FX' ],
+					'title' : 'Original Nuttah 25',
+					'genres' : [ 'Jungle', 'Drum and Bass'],
+					'year' : 2019
+				},
+				{
+					'artists' : [ 'Soft Hair' ],
+					'title' : 'Relaxed Lizard',
+					'genres' : [ 'Indie', 'Pop' ],
+					'year' : 2016
+				},
+				{
+					'artists' : [ 'Travis Scott', 'JACKBOYS', 'Don Toliver' ],
+					'title' : 'WHAT TO DO?',
+					'genres' : [ 'Rap', 'Trap' ],
+					'year' : 2019
+				},
+				{
+					'artists' : [ 'Bas', 'Earthgang' ],
+					'title' : 'Jollof Rice',
+					'genres' : [ 'Rap' ],
+					'year' : 2019,
+				},
+				{
+					'artists' : [ 'Masego' ],
+					'title' : 'Lavish Lullaby',
+					'genres' : [ 'Rap', 'Pop', 'Jazz' ],
+					'year' : 2018
+				},
+				{
+					'artists' : [ 'of Montreal', 'Solange Knowles' ],
+					'title' : 'Sex Karma',
+					'genres' : [ 'Rock', 'Indie' ],
+					'year' : 2010
+				},
+				{
+					'artists' : [ 'KURUPT FM' ],
+					'title' : 'Heart Monitor Riddim',
+					'genres' : [ 'Garage', 'Rap' ],
+					'year' : 2016
+				}
+			]
+		}
+
+		document.write("<hr><span id='big'><b>Serialized Data:</b><br></span><span>");
+		setlistSer = JSON.stringify(setlist);
+		document.write(setlistSer + "</span><br><br>");
+		document.write("<hr><br>");
+
+		function updateInfo()
+		{
+			var genre = document.getElementById("genre").value;
+			var genreSongs = new Array();
+			for (var i = 0; i < setlist.length; i++) {
+				for (var j = 0; j < setlist[i]['genres'].length; j++) {
+					if (setlist[i]['genres'][j] == genre) {
+						genreSongs.push(setlist[i]['title']);
+					}
+				}
+			}
+			// console.log(genreSongs.length);
+			document.getElementById('filtered_title').innerHTML = "<b>List of " + genre + " songs in setlist: </b><br>";
+			document.getElementById('filtered_body').innerHTML = "";
+			for (var i = 0; i < genreSongs.length; i++) {
+				document.getElementById('filtered_body').innerHTML += "" + genreSongs[i] + "<br>";
+			}
+			document.getElementById('filtered_end').innerHTML = "<br><hr>";
+		}
+	</script>
+	<select id="genre">
+		<option value="" selected="selected"></option>
+		<option value="Electronic">Electronic</option>
+		<option value="Techno">Techno</option>
+		<option value="House">House</option>
+		<option value="Jungle">Jungle</option>
+		<option value="Drum and Bass">Drum and Bass</option>
+		<option value="Indie">Indie</option>
+		<option value="Pop">Pop</option>
+		<option value="Rap">Rap</option>
+		<option value="Trap">Trap</option>
+		<option value="Jazz">Jazz</option>
+		<option value="Garage">Garage</option>
+	</select>
+	<br>
+	<button type="button" onclick="updateInfo()">Filter</button>
+	<br><br>
+	<span id='filtered_title'></span>
+	<span id='filtered_body'></span>
+	<span id='filtered_end'></span>
+	<script language="javascript">
+		document.write("<span id='big'><b>List of all tracks in setlist:</b></span><hr>");
+		if (document.getElementById("genre").value == "") {
+			for (var i = 0; i < setlist.length; i++) {
+			document.write("<span><b>" + setlist[i]['title'] + "</b></span><br>");
+			document.write("<span>Artist(s): ");
+			for (var j = 0; j < setlist[i]['artists'].length; j++) {
+				if (j == setlist[i]['artists'].length - 1) {
+					document.write(setlist[i]['artists'][j] + "</span><br>");
+				} else {
+					document.write(setlist[i]['artists'][j] + ", ");
+				}
+			}
+			document.write("<span>Genre(s): ");
+			for (var k = 0; k < setlist[i]['genres'].length; k++) {
+				if (k == setlist[i]['genres'].length - 1) {
+					document.write(setlist[i]['genres'][k] + "</span><br>");
+				} else {
+					document.write(setlist[i]['genres'][k] + ", ");
+				}
+			}
+			document.write("<span>Released " + setlist[i]['year'] + "</span><br><hr>");
+			}
+		}
+	</script>
+</body>
+</html>
